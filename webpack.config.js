@@ -25,6 +25,19 @@ module.exports = {
 				test: /\.css$/,
 				exclude: /(node_modules)/,
 				loader: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(woff|woff2|svg|ttf)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: 'fonts/',
+							publicPath: '../dist/assets/fonts'
+						}
+					}
+				]
 			}
 		]	
 	},
