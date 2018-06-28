@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/main.css';
-import '../fonts/GeosansLight.ttf'
+import '../css/all.css';
+//import '../fonts/Roboto-Medium.ttf'
 import AddBlogForm from './add-blog-form';
 import BlogList from './blog-list';
 import OneBlog from './one-blog';

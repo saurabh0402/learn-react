@@ -1,6 +1,6 @@
 @font-face {
-	font-family: caviar-dreams;
-	src: url('../fonts/GeosansLight.ttf');
+	font-family: roboto;
+	src: url('../fonts/Roboto-Medium.ttf');
 }
 
 * {
@@ -12,11 +12,53 @@
 }
 
 .header {
-	padding: 10px 0px;
-	border-bottom: 1px solid black;
-	font-family: caviar-dreams;
+	padding: 15px 20px;
+	text-align: right;
+	background: -webkit-linear-gradient(right, #e6ffe6, #ccffcc, #b3ffb3);
 }
 
-h1 {
-	font-family: caviar-dreams;
+.header-button {
+	background-color: rgba(0,179,60,0);
+	border: 2px solid rgba(0,179,60,1);
+	border-radius: 5px;
+	padding: 10px 30px;
+	font-size: 1em;
+	font-family: roboto;
+	color: rgba(0,153,51,1);
+	cursor: pointer;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+}
+
+.left-button {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	left: -100%;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.right-button {
+	width: 100%;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.header-button:hover .left-button {
+	left: 0%;
+}
+
+.header-button:hover .right-button {
+	transform: translateX(150%);
+}
+
+.header-button:hover {
+	border: 2px solid rgba(0,100,30,1);
 }

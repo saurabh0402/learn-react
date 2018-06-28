@@ -27,7 +27,7 @@ module.exports = {
 				loader: ['style-loader', 'css-loader']
 			},
 			{
-				test: /\.(woff|woff2|svg|ttf)$/,
+				test: /\.(woff|woff2|svg|ttf|eot)$/,
 				use: [
 					{
 						loader: 'file-loader',
