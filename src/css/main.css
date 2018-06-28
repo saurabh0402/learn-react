@@ -12,19 +12,23 @@
 }
 
 .header {
-	padding: 15px 20px;
+	padding: 10px 20px;
 	text-align: right;
-	background: -webkit-linear-gradient(right, #e6ffe6, #ccffcc, #b3ffb3);
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	border-bottom: 2px solid #595959;
 }
 
 .header-button {
-	background-color: rgba(0,179,60,0);
-	border: 2px solid rgba(0,179,60,1);
+	background-color: rgba(89,89,89,0);
+	border: 2px solid rgba(89,89,89,1);
 	border-radius: 5px;
-	padding: 10px 30px;
-	font-size: 1em;
+	padding: 5px 15px;
+	font-size: 0.9em;
 	font-family: roboto;
-	color: rgba(0,153,51,1);
+	color: rgba(89,89,89,1);
 	cursor: pointer;
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.2s;
@@ -39,6 +43,7 @@
 	width: 100%;
 	text-align: center;
 	left: -100%;
+	color: rgba(89,89,89,1);
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.2s;
 	transition: all 0.2s;
@@ -57,8 +62,4 @@
 
 .header-button:hover .right-button {
 	transform: translateX(150%);
-}
-
-.header-button:hover {
-	border: 2px solid rgba(0,100,30,1);
 }

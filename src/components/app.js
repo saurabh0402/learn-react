@@ -1,11 +1,9 @@
 import React from 'react';
 import '../css/main.css';
 import '../css/all.css';
-//import '../fonts/Roboto-Medium.ttf'
 import AddBlogForm from './add-blog-form';
 import BlogList from './blog-list';
 import OneBlog from './one-blog';
-import Header from './header';
 
 class App extends React.Component {
 	constructor(props){
@@ -35,8 +33,7 @@ class App extends React.Component {
 		const showOneBlog = this.state.showOneBlog;
 		return (
 			<div>
-				<Header onButtonClick={this.onButtonClick} />
-				{ showForm ? <AddBlogForm /> : ( showOneBlog ? <OneBlog /> : <BlogList /> )}
+				{ showForm ? <AddBlogForm /> : ( showOneBlog ? <OneBlog /> : <BlogList onButtonClick={this.onButtonClick}/> )}
 			</div>
 		)
 	}

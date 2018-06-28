@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from './header';
 
-const OneBlog = () => {
+const BlogList = ({onButtonClick}) => {
 	return (
-		<h1> Blog List! </h1>
+		<div className="blog-list-cont">
+			<Header onButtonClick={onButtonClick} />
+			<div className="blog-list"></div>
+		</div>
 	)
 };
 
-export default OneBlog;
+export default BlogList;
