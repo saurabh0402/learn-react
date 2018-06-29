@@ -23,7 +23,7 @@ class App extends React.Component {
 		};
 
 		if(t)
-			o[t] = true;
+			o[t] = !this.state[t];
 
 		this.setState(o);
 	}
@@ -33,7 +33,7 @@ class App extends React.Component {
 		const showOneBlog = this.state.showOneBlog;
 		return (
 			<div>
-				{ showForm ? <AddBlogForm /> : ( showOneBlog ? <OneBlog /> : <BlogList onButtonClick={this.onButtonClick}/> )}
+				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} /> : ( showOneBlog ? <OneBlog /> : <BlogList onButtonClick={this.onButtonClick}/> )}
 			</div>
 		)
 	}
