@@ -10,20 +10,37 @@ class App extends React.Component {
 		super(props);
 		this.defaultState = {
 			showForm: false,
-			showOneBlog: false
+			showOneBlog: false,
+			articles: []
 		};
 
 		this.state = this.defaultState;
 		this.onButtonClick = this.onButtonClick.bind(this);
+		this.addBlog = this.addBlog.bind(this);
+	}
+
+	addBlog(author, title, desc){
+		let t = [...this.state.articles];
+		t.push({
+			author, title, desc
+		});
+
+		console.log(t);
+
+		this.setState({
+			articles: t
+		}, () => {
+			this.onButtonClick('showForm');
+		})
 	}
 
 	onButtonClick(t){
 		let o = {
-			...this.defaultState
+			...this.state
 		};
 
 		if(t)
-			o[t] = !this.state[t];
+			o[t] = !o[t];
 
 		this.setState(o);
 	}
@@ -33,7 +50,7 @@ class App extends React.Component {
 		const showOneBlog = this.state.showOneBlog;
 		return (
 			<div>
-				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} /> : ( showOneBlog ? <OneBlog /> : <BlogList onButtonClick={this.onButtonClick}/> )}
+				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} onFormSubmit={this.addBlog} /> : ( showOneBlog ? <OneBlog /> : <BlogList articles={this.state.articles} onButtonClick={this.onButtonClick}/> )}
 			</div>
 		)
 	}
