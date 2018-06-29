@@ -39,7 +39,7 @@ class AddBlogForm extends React.Component {
 				error: false,
 				errMsg: ''
 			}, () => {
-				this.props.onFormSubmit(title, author, desc);
+				this.props.onFormSubmit(author, title, desc);
 			})
 		}
 	}

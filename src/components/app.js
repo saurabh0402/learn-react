@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/main.css';
 import '../css/all.css';
 import AddBlogForm from './add-blog-form';
-import BlogList from './blog-list';
+import Home from './home';
 import OneBlog from './one-blog';
 
 class App extends React.Component {
@@ -50,7 +50,7 @@ class App extends React.Component {
 		const showOneBlog = this.state.showOneBlog;
 		return (
 			<div>
-				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} onFormSubmit={this.addBlog} /> : ( showOneBlog ? <OneBlog /> : <BlogList articles={this.state.articles} onButtonClick={this.onButtonClick}/> )}
+				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} onFormSubmit={this.addBlog} /> : ( showOneBlog ? <OneBlog /> : <Home articles={this.state.articles} onButtonClick={this.onButtonClick}/> )}
 			</div>
 		)
 	}

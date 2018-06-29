@@ -1,18 +1,15 @@
 import React from 'react';
-import Header from './header';
 
-const BlogList = ({articles=[], onButtonClick}) => {
+const BlogList = function({articles}){
 	return (
-		<div className="blog-list-cont">
-			<Header onButtonClick={onButtonClick} />
-			<div className="blog-list">
-				{ articles.length === 0 ? 
-					<h1 className="no-articles"> Sorry. No Blogs Present </h1> :
-					<h1> Ok! </h1>
-				}
-			</div>
+		<div className='blog-list'>
+			{
+				articles.map(function(a, i){
+					return <h1 key={'article' + i}> {a.title} </h1>
+				})
+			}
 		</div>
 	)
-};
+}
 
 export default BlogList;
