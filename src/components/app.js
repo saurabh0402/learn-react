@@ -4,6 +4,7 @@ import '../css/all.css';
 import AddBlogForm from './add-blog-form';
 import Home from './home';
 import OneBlog from './one-blog';
+import {v4} from 'uuid';
 
 class App extends React.Component {
 	constructor(props){
@@ -22,10 +23,10 @@ class App extends React.Component {
 	addBlog(author, title, desc){
 		let t = [...this.state.articles];
 		t.push({
-			author, title, desc
+			author, title, desc,
+			date: Date.now(),
+			id: v4()
 		});
-
-		console.log(t);
 
 		this.setState({
 			articles: t
