@@ -12,12 +12,27 @@ class App extends React.Component {
 		this.defaultState = {
 			showForm: false,
 			showOneBlog: false,
-			articles: []
+			articles: [],
+			selectedArticle: {}
 		};
 
 		this.state = this.defaultState;
 		this.onButtonClick = this.onButtonClick.bind(this);
 		this.addBlog = this.addBlog.bind(this);
+		this.onArticleSelect = this.onArticleSelect.bind(this);
+	}
+
+	onArticleSelect(id){
+		let t = this.state.articles.reduce(function(prev, e){
+			if(e.id === id){
+				return {...e};
+			}
+		}, {});
+		
+		this.setState({
+			showOneBlog: !this.state.showOneBlog,
+			selectedArticle: t
+		});
 	}
 
 	addBlog(author, title, desc){
@@ -42,6 +57,7 @@ class App extends React.Component {
 
 		if(t)
 			o[t] = !o[t];
+		o.selectedArticle = {};
 
 		this.setState(o);
 	}
@@ -51,7 +67,7 @@ class App extends React.Component {
 		const showOneBlog = this.state.showOneBlog;
 		return (
 			<div>
-				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} onFormSubmit={this.addBlog} /> : ( showOneBlog ? <OneBlog /> : <Home articles={this.state.articles} onButtonClick={this.onButtonClick}/> )}
+				{ showForm ? <AddBlogForm onButtonClick={this.onButtonClick} onFormSubmit={this.addBlog} /> : ( showOneBlog ? <OneBlog article={this.state.selectedArticle} onButtonClick={this.onButtonClick} /> : <Home articles={this.state.articles} onButtonClick={this.onButtonClick} onArticleSelect={this.onArticleSelect}/> )}
 			</div>
 		)
 	}

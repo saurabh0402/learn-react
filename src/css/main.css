@@ -207,14 +207,25 @@
 	padding: 15px 20px;
 }
 
-.article-home-details {
+.article-details {
 	display: inline-block;
 	color: rgba(0,0,0,0.7);
 	padding: 10px 0px;
 	font-size: 0.9em;
 }
 
-.article-home-content {
+.article-content {
 	text-align: justify;
 	padding: 10px 0px 20px 0px;
+}
+
+.one-blog {
+	padding: 70px 0px 20px 0px;
+	text-align: center;
+	font-family: roboto-regular;
+}
+
+.one-blog-cont {
+	width: 70%;
+	display: inline-block;
 }
