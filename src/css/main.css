@@ -23,7 +23,9 @@
 	top: 0px;
 	left: 0px;
 	width: 100%;
+	background-color: #ffffff;
 	border-bottom: 2px solid #595959;
+	z-index: 100;
 }
 
 .header-button {

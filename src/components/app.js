@@ -26,6 +26,8 @@ class App extends React.Component {
 		let t = this.state.articles.reduce(function(prev, e){
 			if(e.id === id){
 				return {...e};
+			} else {
+				return prev;
 			}
 		}, {});
 		
@@ -47,7 +49,7 @@ class App extends React.Component {
 			articles: t
 		}, () => {
 			this.onButtonClick('showForm');
-		})
+		});
 	}
 
 	onButtonClick(t){
