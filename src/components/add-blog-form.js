@@ -28,7 +28,6 @@ class AddBlogForm extends React.Component {
 				this.props.onFormSubmit(author, title, desc);
 			});
 		} else {
-			console.log(validationRes);
 			this.setState(validationRes);
 		}
 	}
