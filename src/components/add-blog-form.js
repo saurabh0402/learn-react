@@ -17,30 +17,19 @@ class AddBlogForm extends React.Component {
 		const {_author, _title, _desc} = this.refs;
 		let title  = _title.value,
 			author = _author.value,
-			desc   = _desc.value;
+			desc   = _desc.value; 
 
-		if(typeof(author) !== 'string' && author.trim().length == 0){
-			this.setState({
-				error: true,
-				errMsg: 'Please enter your name!'
-			});
-		} else if(typeof(title) !== 'string' && title.trim().length > 5){
-			this.setState({
-				error: true,
-				errMsg: 'Please enter a title greater than 5 characters of length!'
-			})
-		} else if(typeof(desc) !== 'string' && desc.trim().length > 50){
-			this.setState({
-				error: true,
-				errMsg: 'Please write a proper blog greater than 50 characters of length!'
-			})
-		} else {
+		let validationRes = validate(title, author, desc);
+		if(!validationRes.error) {
 			this.setState({
 				error: false,
 				errMsg: ''
 			}, () => {
 				this.props.onFormSubmit(author, title, desc);
-			})
+			});
+		} else {
+			console.log(validationRes);
+			this.setState(validationRes);
 		}
 	}
 
@@ -57,6 +46,7 @@ class AddBlogForm extends React.Component {
 							<input type="text" placeholder="Your Name" ref="_author" />
 							<input type="text" placeholder="Title of Blog" ref="_title" />
 							<textarea placeholder = "Your Content here" ref="_desc" ></textarea>
+							{this.state.error && <div className="warning-text"> {this.state.errMsg} </div>}
 							<button className="submit-button" onClick={this.submit}>
 								<div className="left-button"> Submit your Blog </div>
 								<div className="right-button"> Submit your Blog </div>
@@ -67,6 +57,33 @@ class AddBlogForm extends React.Component {
 			</div>
 		)
 	}
+}
+
+function validate(title, author, desc){
+	if(typeof(author) !== 'string' || author.trim().length == 0){
+		return {
+			error: true,
+			errMsg: 'Please enter your name!'
+		};
+	}
+
+	if(typeof(title) !== 'string' || title.trim().length < 5){
+		return {
+			error: true,
+			errMsg: 'Please enter a title greater than 5 characters of length!'
+		};
+	}
+
+	if(typeof(desc) !== 'string' || desc.trim().length < 500){
+		return {
+			error: true,
+			errMsg: 'Please write a proper blog greater than 500 characters of length!'
+		};
+	}
+
+	return {
+		error: false
+	};
 }
 
 export default AddBlogForm;

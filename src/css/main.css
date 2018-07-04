@@ -229,3 +229,9 @@
 	width: 70%;
 	display: inline-block;
 }
+
+.warning-text {
+	text-align: center;
+	font-family: roboto;
+	color: rgba(153, 0, 0, 1);
+}
