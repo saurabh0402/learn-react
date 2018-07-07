@@ -1,4 +1,5 @@
 import React from 'react';
+import Weather from '../weather/weather';
 
 const Home = ({toggleForm, cities}) => {
 	return (
@@ -8,7 +9,13 @@ const Home = ({toggleForm, cities}) => {
 			</button>
 			{
 				cities.length > 0 ?
-					<div className="weather-list"> </div> :
+					<div className="weather-list">
+						{
+							cities.map(function(city, i){
+								return <Weather city={city} key={'weather'+i} />
+							})
+						}
+					</div> :
 					<div className="show-message">
 						<i className="far fa-grin-beam-sweat" />
 						<div className="message"> No cities added. Add One to see weather report. </div>

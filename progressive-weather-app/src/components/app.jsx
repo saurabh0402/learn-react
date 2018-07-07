@@ -5,7 +5,7 @@ import Form from './pages/form';
 import Home from './pages/home';
 
 // curWeather Object
-// { placedetails: {name, lat, lang}, weatherDetails: {temp, temp_max, temp_min, desc, icon}, lastUpdated }
+// { placedetails: {name, administrativeArea, country id}, weatherDetails: {temp, text, icon}, lastUpdated }
 
 class App extends React.Component {
 	constructor(props){
@@ -17,6 +17,7 @@ class App extends React.Component {
 		};
 
 		this.toggleFrom = this.toggleFrom.bind(this);
+		this.addCity = this.addCity.bind(this);
 	}
 
 	toggleFrom(){
@@ -28,11 +29,36 @@ class App extends React.Component {
 
 	componentDidMount(){}
 
+	addCity(city){
+		let t = {
+			id: city.Key,
+			placeDetails: {
+				name: city.LocalizedName,
+				country: city.Country.LocalizedName,
+				administrativeArea: city.AdministrativeArea.LocalizedName
+			},
+			weatherDetails: {
+				temp: null,
+				text: '',
+				icon: ''
+			},
+			lastUpdated: new Date(null)
+		};
+
+		let curWeather = this.state.curWeather;
+		curWeather.push(t);
+
+		this.setState({
+			showForm: false,
+			curWeather: curWeather
+		});
+	}
+
 	render(){
 		return (
 			<div className="cont">
 				{ this.state.showForm ?
-					<Form toggleForm={this.toggleFrom} /> : <Home toggleForm={this.toggleFrom} cities={this.state.curWeather} />
+					<Form toggleForm={this.toggleFrom} addCity={this.addCity} /> : <Home toggleForm={this.toggleFrom} cities={this.state.curWeather} />
 				}
 			</div>
 		)

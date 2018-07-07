@@ -1,5 +1,7 @@
 import React from 'react';
 import config from '../config';
+import fetch from 'isomorphic-fetch';
+import SearchResult from '../search.jsx'
 
 class Form extends React.Component {
 	constructor(props){
@@ -8,16 +10,37 @@ class Form extends React.Component {
 		this.state = {
 			searchedOnce: false,
 			searching: false,
-			cities: []
+			cities: [],
+			error: false
 		};
 
-		this._mapsApiKey = config.placesId;
 		this.searchCity = this.searchCity.bind(this);
 	}
 
 	searchCity(e){
 		e.preventDefault();
-		console.log(this.refs.city.value);
+		let city = this.refs.city.value.trim();
+		if(city.length < 3){
+			this.setState({
+				'error': true
+			})
+		} else {
+			let url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${config.weatherId}&q=${city}`;
+			this.setState({
+				'searching': true
+			}, () => {
+				fetch(url)
+					.then(res => res.json())
+					.then(res => {
+						this.setState({
+							'cities': res,
+							'searching': false,
+							'searchedOnce': true,
+							'error': false
+						});
+					});
+			});
+		}
 	}
 
 	componentDidMount(){
@@ -35,6 +58,7 @@ class Form extends React.Component {
 					<form onSubmit={this.searchCity}>
 						<input type="text" placeholder="Enter City Name" ref="city" />
 						<button type="submit"> <span> Search City </span> </button>
+						{ this.state.error && <div class="warning"> Please enter atleast three characters </div> }
 					</form>
 				</div>
 				<div className="city-list">
@@ -64,7 +88,11 @@ class Form extends React.Component {
 					{
 						!searching && cities.length != 0 && 
 							<div className="cities">
-								City List here!
+								{
+									this.state.cities.map((city, i) => {
+										return <SearchResult city={city} key={'city'+i} onClick={() => this.props.addCity(city)} />
+									})
+								}
 							</div>
 					}
 				</div>

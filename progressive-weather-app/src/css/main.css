@@ -52,7 +52,7 @@ h1 {
 }
 
 .add-city-form {
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .add-city-form input {
@@ -75,6 +75,7 @@ h1 {
 	border-left: none;
 	position: relative;
 	outline: none;
+	cursor: pointer;
 }
 
 .add-city-form button span {
@@ -83,4 +84,43 @@ h1 {
 	padding: 8px 18px;
 	display: inline-block;
 	font-weight: bold;
+}
+
+.search-result {
+	padding: 10px 20px;
+	margin: 3px;
+	border: 1px solid rgba(0,0,0,0.8);
+	width: 40%;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 1.2em;
+	position: relative;
+}
+
+.search-result-text {
+	position: relative;
+	-webkit-transition: color 0.3s;
+	-moz-transition: color 0.3s;
+	transition: color 0.3s;
+	color: rgba(0,0,0,0.8);
+}
+
+.search-result-back {
+	background-color: #339966;
+	width: 0%;
+	height: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	-webkit-transition: width 0.3s;
+	-moz-transition: width 0.3s;
+	transition: width 0.3s
+}
+
+.search-result:hover .search-result-back {
+	width: 100%;
+}
+
+.search-result:hover .search-result-text {
+	color: rgba(255,255,255,1);
 }
