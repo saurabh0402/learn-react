@@ -19,6 +19,8 @@ class App extends React.Component {
 
 		this.toggleFrom = this.toggleFrom.bind(this);
 		this.addCity = this.addCity.bind(this);
+		this.deleteCity = this.deleteCity.bind(this);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	toggleFrom(){
@@ -53,7 +55,7 @@ class App extends React.Component {
 					text: weather.WeatherText,
 					icon: icon
 				},
-				lastUpdated: new Date(null)
+				lastUpdated: Date.now()
 			};
 
 			let curWeather = this.state.curWeather;
@@ -86,6 +88,47 @@ class App extends React.Component {
 		}
 	}
 
+	deleteCity(id=""){
+		let t = this.state.curWeather.filter(function(weather){
+			return !(weather.id == id);
+		});
+
+		this.setState({
+			curWeather: t
+		});
+	}
+
+	refresh(id=""){
+		if(id){
+			this.getWeather(id).then((weather) => {
+				weather = weather[0];
+				let icon = "https://developer.accuweather.com/sites/default/files/";
+				if(weather.WeatherIcon < 10)
+					icon += "0";
+				icon += weather.WeatherIcon + "-s.png"
+				let t = {
+					temp: weather.Temperature.Metric.Value,
+					text: weather.WeatherText,
+					icon: icon
+				};
+
+				let curWeather = this.state.curWeather.map(function(weather){
+					if(weather.id === id){
+						weather.weatherDetails = t;
+						weather.lastUpdated = Date.now();
+						return weather;
+					} else {
+						return weather;
+					}
+				});
+
+				this.setState({
+					curWeather: curWeather
+				});
+			});
+		}
+	}
+
 	render(){
 		return (
 			<div className="cont">
@@ -93,7 +136,7 @@ class App extends React.Component {
 					<Form toggleForm={this.toggleFrom} addCity={this.addCity} />
 				}
 				{ !this.state.showForm && !this.error &&
-					<Home toggleForm={this.toggleFrom} cities={this.state.curWeather} />
+					<Home toggleForm={this.toggleFrom} cities={this.state.curWeather} deleteCity={this.deleteCity} refreshCity={this.refresh} />
 				}
 				{ !this.state.showForm && this.error &&
 					<div className="show-message">

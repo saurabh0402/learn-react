@@ -1,7 +1,7 @@
 import React from 'react';
 import Weather from '../weather/weather';
 
-const Home = ({toggleForm, cities}) => {
+const Home = ({toggleForm, cities, deleteCity, refreshCity}) => {
 	return (
 		<div className="home-cont">
 			<button className="open-form-button flying-button" onClick={() => toggleForm()}>
@@ -12,7 +12,7 @@ const Home = ({toggleForm, cities}) => {
 					<div className="weather-list">
 						{
 							cities.map(function(city, i){
-								return <Weather city={city} key={'weather'+i} />
+								return <Weather city={city} key={'weather'+i} deleteCity={deleteCity} refreshCity={refreshCity} />
 							})
 						}
 					</div> :
