@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import config from './config';
 import Form from './pages/form';
 import Home from './pages/home';
+import { addCity, deleteCity, updateCity, toggleShowForm, toggleError } from '../store/actions';
 
 // curWeather Object
 // { placedetails: {name, administrativeArea, country id}, weatherDetails: {temp, text, icon}, lastUpdated }
@@ -11,11 +12,12 @@ class App extends React.Component {
 	constructor(props){
 		super(props);
 		this._weatherApiKey = config.weatherId;
-		this.state = {
-			curWeather: [],
-			showForm: false,
-			error: false
-		};
+		//console.log(props.store.getState());
+		// this.state = {
+		// 	curWeather: [],
+		// 	showForm: false,
+		// 	error: false
+		// };
 
 		this.toggleFrom = this.toggleFrom.bind(this);
 		this.addCity = this.addCity.bind(this);
@@ -25,9 +27,11 @@ class App extends React.Component {
 
 	toggleFrom(){
 		//console.log(this.state)
-		this.setState({
-			showForm: !this.state.showForm
-		});
+		// this.setState({
+		// 	showForm: !this.state.showForm
+		// });
+
+		this.props.store.dispatch(toggleShowForm());
 	}
 
 	componentDidMount(){
@@ -58,17 +62,20 @@ class App extends React.Component {
 				lastUpdated: Date.now()
 			};
 
-			let curWeather = this.state.curWeather;
-			curWeather.push(t);
+			this.props.store.dispatch(addCity(t.id, t.placeDetails, t.weatherDetails));
+			this.props.store.dispatch(toggleShowForm());
+			// let curWeather = this.state.curWeather;
+			// curWeather.push(t);
 
-			this.setState({
-				showForm: false,
-				curWeather: curWeather
-			});
+			// this.setState({
+			// 	showForm: false,
+			// 	curWeather: curWeather
+			// });
 		}).catch(e => {
-			this.setState({
-				error: true
-			})
+			// this.setState({
+			// 	error: true
+			// })
+			this.props.store.dispatch(toggleError());
 		});
 	}
 
@@ -89,13 +96,14 @@ class App extends React.Component {
 	}
 
 	deleteCity(id=""){
-		let t = this.state.curWeather.filter(function(weather){
-			return !(weather.id == id);
-		});
+		// let t = this.state.curWeather.filter(function(weather){
+		// 	return !(weather.id == id);
+		// });
 
-		this.setState({
-			curWeather: t
-		});
+		// this.setState({
+		// 	curWeather: t
+		// });
+		this.props.store.dispatch(deleteCity(id));
 	}
 
 	refresh(id=""){
@@ -112,33 +120,51 @@ class App extends React.Component {
 					icon: icon
 				};
 
-				let curWeather = this.state.curWeather.map(function(weather){
-					if(weather.id === id){
-						weather.weatherDetails = t;
-						weather.lastUpdated = Date.now();
-						return weather;
-					} else {
-						return weather;
-					}
-				});
+				this.props.store.dispatch(updateCity(id, t));
+				// let curWeather = this.state.curWeather.map(function(weather){
+				// 	if(weather.id === id){
+				// 		weather.weatherDetails = t;
+				// 		weather.lastUpdated = Date.now();
+				// 		return weather;
+				// 	} else {
+				// 		return weather;
+				// 	}
+				// });
 
-				this.setState({
-					curWeather: curWeather
-				});
+				// this.setState({
+				// 	curWeather: curWeather
+				// });
 			});
 		}
 	}
 
 	render(){
+		let t = this.props.store.getState();
+		// return (
+		// 	<div className="cont">
+		// 		{ this.state.showForm &&
+		// 			<Form toggleForm={this.toggleFrom} addCity={this.addCity} />
+		// 		}
+		// 		{ !this.state.showForm && !this.error &&
+		// 			<Home toggleForm={this.toggleFrom} cities={this.state.curWeather} deleteCity={this.deleteCity} refreshCity={this.refresh} />
+		// 		}
+		// 		{ !this.state.showForm && this.error &&
+		// 			<div className="show-message">
+		// 				<i className="fa fa-frown" />
+		// 				<div className="message"> Error Fetching weather! </div>
+		// 			</div>
+		// 		}
+		// 	</div>
+		// )
 		return (
 			<div className="cont">
-				{ this.state.showForm &&
+				{ t.showForm &&
 					<Form toggleForm={this.toggleFrom} addCity={this.addCity} />
 				}
-				{ !this.state.showForm && !this.error &&
-					<Home toggleForm={this.toggleFrom} cities={this.state.curWeather} deleteCity={this.deleteCity} refreshCity={this.refresh} />
+				{ !t.showForm && !t.error &&
+					<Home toggleForm={this.toggleFrom} cities={t.curWeather} deleteCity={this.deleteCity} refreshCity={this.refresh} />
 				}
-				{ !this.state.showForm && this.error &&
+				{ !t.showForm && t.error &&
 					<div className="show-message">
 						<i className="fa fa-frown" />
 						<div className="message"> Error Fetching weather! </div>
