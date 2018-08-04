@@ -5,9 +5,6 @@ import Form from './pages/form';
 import Home from './pages/home';
 import { addCity, deleteCity, updateCity, toggleShowForm, toggleError } from '../store/actions';
 
-// curWeather Object
-// { placedetails: {name, administrativeArea, country id}, weatherDetails: {temp, text, icon}, lastUpdated }
-
 class App extends React.Component {
 	constructor(props){
 		super(props);
