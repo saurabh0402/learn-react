@@ -7,12 +7,15 @@ import Body from './components/body';
 
 const App = () => {
   const [theme, setTheme] = useState('light');
-  console.log(GlobalStyles);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
     <ThemeProvider theme={themes[theme]}>
       <GlobalStyles />
-      <Body setTheme={setTheme} />
+      <Body toggleTheme={toggleTheme} />
     </ThemeProvider>
   );
 };

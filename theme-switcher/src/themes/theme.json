@@ -4,17 +4,35 @@
     "name": "Day",
     "colors": {
       "text": "#404040",
-      "background": "#f2f2f2"
+      "background": "#f2f2f2",
+      "border": "#a6a6a6"
     },
-    "font": "roboto"
+    "font": "roboto",
+    "switcher": {
+      "icon": "BsMoon",
+      "color": "#595959",
+      "hoverColor": "#404040"
+    },
+    "code": {
+      "fontFamily": "Roboto Mono"
+    }
   },
   "dark": {
     "id": "dark",
     "name": "Night",
     "colors": {
       "text": "#f2f2f2",
-      "background": "#404040"
+      "background": "#404040",
+      "border": "#a6a6a6"
     },
-    "font": "roboto"
+    "font": "roboto",
+    "switcher": {
+      "icon": "BsSun",
+      "color": "#ffcc99",
+      "hoverColor": "#ff8000"
+    },
+    "code": {
+      "fontFamily": "Roboto Mono"
+    }
   }
 }
