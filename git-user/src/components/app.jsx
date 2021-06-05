@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 
-import useFetch from "../hooks/fetch";
+import { useData } from "../provider";
 
 import SearchForm from "./search-form";
 import GitHubUser from "./github-user";
+import Repos from "./github-repos";
+import Readme from "./repo-readme";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [data, error, loading] = useFetch(
-    username ? `https://api.github.com/users/${username}` : null
-  );
+  const {
+    state: { username },
+  } = useData();
 
   return (
     <div>
-      <SearchForm onSubmit={setUsername} />
-      <GitHubUser data={data} error={error} loading={loading} />
+      <SearchForm />
+      {username && <GitHubUser />}
+      {username && <Repos />}
+      {username && <Readme />}
     </div>
   );
 }

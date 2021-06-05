@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 
-function SearchForm({ onSubmit }) {
+import { useData } from "../provider";
+
+function SearchForm() {
   const [data, setData] = useState("");
+  const { state, dispatch } = useData();
+
+  function onSubmit() {
+    dispatch({ type: "ADD_USERNAME", data });
+  }
 
   return (
     <>
@@ -10,7 +17,7 @@ function SearchForm({ onSubmit }) {
         onChange={(e) => setData(e.target.value)}
         placeholder="GitHub Username"
       />
-      <button onClick={() => onSubmit(data)}> Search </button>
+      <button onClick={() => onSubmit()}> Search </button>
     </>
   );
 }
